@@ -76,11 +76,28 @@ void debug(String Name, int Value) {
 
 
 void loop() {
-
-  //  forwardOneBlock();
-  //  turn180();
-  //  turnRight();
-  //  turnLeft();
+  //motors.setM1Speed(40);
+  //motors.setM2Speed(40);
+//  while(analogRead(FRONT) < 435){
+//    forwardOneBlock();
+//  }
+  //turnLeft();
+  //testSensors();
+  //Serial.println();
+  //delay(1000);
+  //forwardOneBlock();
+  //turn180();
+  //turnRight();
+  //turnLeft();
   //  delay(500);
+  
+  
+  
+  coord goals[] = {{(X/2)-1,(Y/2)-1},{(X/2)-1,(Y/2)},{(X/2),(Y/2)-1},{X/2,Y/2}};
+  instantiate();
+  solveMaze(goals, globalCoord, true);
+
+  
+  
 
 }

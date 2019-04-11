@@ -1,3 +1,9 @@
+// Sensors
+#define RIGHT     A1
+#define RIGHT_D   A2
+#define FRONT     A3
+#define LEFT_D    A4
+#define LEFT      A5
 
 void motorSetup() {
   pinMode(M1A, OUTPUT);
@@ -12,32 +18,105 @@ void motorSetup() {
 
 // ============================================================ //
 void forwardOneBlock() {
-  int speed = 0;
-  for (speed = 0; speed <= 45; speed++) {
+  int speed;
+  int speed1, speed2;
+  for (speed = 0; speed <= 35; speed++) {
+
     motors.setM1Speed(speed);
     motors.setM2Speed(speed);
     delay(30);
   }
-  for (speed = speed; speed >= 0; speed--) {
-    motors.setM1Speed(speed);
-    motors.setM2Speed(speed);
-    delay(30);
-  }
+  speed1 = speed;
+  speed2 = speed;
+  int i = 0;
+
+  while(i < 60 && analogRead(FRONT) < 435){
+        if(leftAvailable()){
+           if(analogRead(LEFT) > 290){
+              if(speed1 < 40){
+                speed1++;
+                speed2--;
+              }
+              //else if(speed2 >30){
+                //speed2--;
+              //}
+              //speed1 = 50; // Assume the 1 is left
+              //if(speed2 <= 40
+              //i += 1;
+              }
+           else if(analogRead(LEFT) < 270){
+              if(speed1 > 30){
+                speed1--;
+                speed2++;
+              }
+//              else if(speed2 < 40){
+//                speed2++;
+//              }
+              //speed1 = 40;
+              //i += 1;
+           }
+           else{
+            speed1 = 35;
+            speed2 = 35;
+          }
+        }
+        else if(rightAvailable()){
+           if(analogRead(RIGHT) > 290){
+              if(speed1 > 30){
+                speed1--;
+                speed2++;
+              }
+//              else if(speed2 < 40){
+//                speed2++;
+//              }
+              //speed1 = 40;
+              //i += 1;;
+           }
+           else if(analogRead(RIGHT) < 270){
+            if(speed1 < 40){
+                speed1++;
+                speed2--;
+              }
+//              else if(speed2 >30){
+//                speed2--;
+//              }
+              //speed1 = 50;
+              //i += 1;
+           }
+        }
+        else{
+          speed1 = 35;
+          speed2 = 35;
+        }
+        i++;
+        motors.setM1Speed(speed1);
+        motors.setM2Speed(speed2);
+        
+        delay(15);
+    }
+
+  motors.setM1Speed(0);
+  motors.setM2Speed(0);
+  //for (speed = speed; speed >= 0; speed--) {
+  //  motors.setM1Speed(speed);
+  //  motors.setM2Speed(speed);
+  //  delay(30);
+  //}
   delay(2000);
 }
 
 // ============================================================ //
 void turn180() {
   int speed = 0;
-  for (speed = 0; speed <= 52; speed++) {
+  for (speed = 0; speed <= 34; speed++) {
     motors.setM1Speed(speed);
     motors.setM2Speed(-speed);
-    delay(20);
+    delay(40);
   }
   for (speed = speed; speed >= 0; speed--) {
     motors.setM1Speed(speed);
     motors.setM2Speed(-speed);
-    delay(25);
+    delay(51);
   }
   delay(2000);
 }
@@ -45,10 +124,10 @@ void turn180() {
 // ============================================================ //
 void turnRight() {
   int speed = 0;
-  for (speed = 0; speed <= 40; speed++) {
+  for (speed = 0; speed <= 34; speed++) {
     motors.setM1Speed(speed);
     motors.setM2Speed(-speed);
-    delay(20);
+    delay(23);
   }
   for (speed = speed; speed >= 0; speed--) {
     motors.setM1Speed(speed);
@@ -61,7 +140,7 @@ void turnRight() {
 // ============================================================ //
 void turnLeft() {
   int speed = 0;
-  for (speed = 0; speed <= 40; speed++) {
+  for (speed = 0; speed <= 35; speed++) {
     motors.setM1Speed(-speed);
     motors.setM2Speed(speed);
     delay(20);
@@ -69,7 +148,7 @@ void turnLeft() {
   for (speed = speed; speed >= 0; speed--) {
     motors.setM1Speed(-speed);
     motors.setM2Speed(speed);
-    delay(25);
+    delay(24);
   }
   delay(2000);
 }
@@ -88,6 +167,7 @@ void forwardOneBlockFaster(){
 
 
 bool leftAvailable(){
+    //"Perfect reading" for the sensor at dead center is 275
     return analogRead(LEFT) >= 150;
 }
 

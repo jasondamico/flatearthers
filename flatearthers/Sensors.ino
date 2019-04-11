@@ -11,9 +11,9 @@ void sensorSetup() {
 
 
 void testSensors() {
-  //  debug("RIGHT", analogRead(RIGHT));
-  //  debug("RIGHT_D", analogRead(RIGHT_D));
-  //  debug("FORWARD", analogRead(FORWARD));
-  //  debug("LEFT_D", analogRead(LEFT_D));
-  //  debug("LEFT", analogRead(LEFT));
+    debug("RIGHT", analogRead(RIGHT));
+    debug("RIGHT_D", analogRead(RIGHT_D));
+    debug("FORWARD", analogRead(FRONT));
+    debug("LEFT_D", analogRead(LEFT_D));
+    debug("LEFT", analogRead(LEFT));
 }
