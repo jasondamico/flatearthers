@@ -1,4 +1,3 @@
-
 //calculate optimistic distance from one cell to another cell
 int calcDist(byte x, byte y, byte goalX, byte goalY) {
   return abs(goalY - y) + abs(goalX - x);
@@ -6,10 +5,10 @@ int calcDist(byte x, byte y, byte goalX, byte goalY) {
 void printMaze() {
   for (int j = 0; j < Y; j++) {
     for (int i = 0; i < X; i++) {
-//      Serial.print(maze[j][i].walls);
-//      Serial.print(" ");
+            Serial.print(maze[j][i].walls);
+            Serial.print(" ");
     }
-    //Serial.println();
+    Serial.println();
   }
 }
 
@@ -181,10 +180,10 @@ int optimalDirection(coord current, int heading) {
           leastDir = dir;
         }
       }
-      Serial.println(leastDir);
+//      Serial.println(leastDir);
     }
   }
-  Serial.println(leastDir);
+//  Serial.println(leastDir);
   return leastDir;
 }
 
@@ -268,9 +267,9 @@ void floodfill(coord current, coord goals[]) {
   //Serial.println(current.x);
   //Serial.println(current.y);
   //Serial.println(maze[current.x][current.y].walls);
-  //printMaze();
-  //printFlood();
-  delay(1000);
+//  printMaze();
+//  printFlood();
+//  delay(1000);
   coords.push(current);
 
   for (int i = 0; i < 4; i++) {
@@ -395,18 +394,29 @@ command createCommand(coord current, coord next, byte heading) {
 
 void executeCommand(command cmd, int num) {
   switch (cmd.orientation) {
-    case 0:
-      turnLeft();
+    case 0 :
+//      turnLeft();
+      turnLeft2(); //The one before 
+//      turnLeft2Over(); //The one before 
+      //turnLeft4();
       break;
     case 1:
-      turnRight();
+//      turnRight();
+      turnRight2(); //The one before
+//      turnRight2Over();
+      //turnRight4();
       break;
     case 2:
-      turn180();
+//      turn180();
+      turn1802(); //The one before
+      //turn1804();
+//        turnLeftTwice();
+        
       break;
   }
   if (num == 0) {
     forwardOneBlock();
+    
   } else {
     forwardOneBlockFaster();
   }
@@ -422,12 +432,12 @@ void solveMaze(coord goals[], coord current, bool isMoving) {
   //Serial.println();
   while (maze[cur.x][cur.y].distance != 0) {
     floodfill(cur, goals);
-//    Serial.println();
-//    Serial.print("x is:");
-//    Serial.println(cur.x);
-//    Serial.print("patrick is:");
-//    Serial.println(cur.y);
-//    Serial.println();
+//        Serial.println();
+//        Serial.print("x is:");
+//        Serial.println(cur.x);
+//        Serial.print("patrick is:");
+//        Serial.println(cur.y);
+//        Serial.println();
     byte nextHeading = optimalDirection(cur, heading);
 
     coord next = getNewCoordinate(cur, nextHeading);

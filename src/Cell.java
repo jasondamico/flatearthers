@@ -17,7 +17,8 @@ public class Cell {
     }
 
     public boolean[] getWall(){
-        return this.wall;
+    	boolean[] returnWall = this.wall.clone();
+        return returnWall;
     }
 
     public void setFlood(int flood){ this.flood=flood; }
@@ -38,5 +39,30 @@ public class Cell {
     public void setSouth(boolean x){
         this.wall[3]=x;
     }
-
+    
+    public boolean getEast() {
+    	return this.wall[0];
+    }
+    
+    public boolean getWest() {
+    	return this.wall[1];
+    }
+    
+    public boolean getNorth() {
+    	return this.wall[2];
+    }
+    
+    public boolean getSouth() {
+    	return this.wall[3];
+    }
+    /*
+    public boolean equals(Object o) {
+    	if(!(o instanceof Cell)) {
+    		return false;
+    	}
+    	else {
+    		Cell cell = Cell.class.cast(o);
+    		if((cell.)
+    	}
+    }*/
 }
